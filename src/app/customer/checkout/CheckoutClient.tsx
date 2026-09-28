@@ -4,7 +4,10 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { placeOrder } from './actions';
 
-export default function CheckoutClient({ cartItems, verifiedPrescriptions }: { cartItems: any /* eslint-disable-line @typescript-eslint/no-explicit-any */[], verifiedPrescriptions: any /* eslint-disable-line @typescript-eslint/no-explicit-any */[] }) {
+type CartItem = { id: string; quantity: number; medicine: { name: string; price: number; requiresPrescription: boolean } };
+type VerifiedRx = { id: string; createdAt: string | Date };
+
+export default function CheckoutClient({ cartItems, verifiedPrescriptions }: { cartItems: CartItem[], verifiedPrescriptions: VerifiedRx[] }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -24,8 +27,8 @@ export default function CheckoutClient({ cartItems, verifiedPrescriptions }: { c
       if (result.success) {
         router.push(`/customer/orders/success?orderId=${result.orderId}`);
       }
-    } catch (err: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) {
-      alert(err.message);
+    } catch (err) {
+      alert(err instanceof Error ? err.message : String(err));
       setLoading(false);
     }
   };
@@ -84,7 +87,7 @@ export default function CheckoutClient({ cartItems, verifiedPrescriptions }: { c
               ) : (
                 <select name="prescriptionId" required style={{ padding: '0.5rem', width: '100%', borderRadius: '4px', border: '1px solid #ccc' }}>
                   <option value="">-- Select Verified Prescription --</option>
-                  {verifiedPrescriptions.map((rx: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => (
+                  {verifiedPrescriptions.map((rx) => (
                     <option key={rx.id} value={rx.id}>Prescription uploaded on {new Date(rx.createdAt).toLocaleDateString()}</option>
                   ))}
                 </select>

@@ -3,13 +3,25 @@
 import { useState } from 'react';
 import { addMedicine, updateMedicine, deleteMedicine } from './actions';
 
-export default function MedicineManager({ initialMedicines }: { initialMedicines: any /* eslint-disable-line @typescript-eslint/no-explicit-any */[] }) {
-  const [medicines, setMedicines] = useState(initialMedicines);
+type Medicine = {
+  id: string;
+  name: string;
+  genericName?: string | null;
+  category?: string | null;
+  description: string;
+  price: number;
+  stock: number;
+  requiresPrescription: boolean;
+  expiryDate?: string | Date | null;
+};
+
+export default function MedicineManager({ initialMedicines }: { initialMedicines: Medicine[] }) {
+  const [medicines] = useState(initialMedicines);
   const [search, setSearch] = useState('');
   const [filterStock, setFilterStock] = useState('ALL'); // ALL, IN_STOCK, LOW_STOCK, OUT_OF_STOCK
   
   const [isEditing, setIsEditing] = useState(false);
-  const [currentMed, setCurrentMed] = useState<any>(null);
+  const [currentMed, setCurrentMed] = useState<Medicine | null>(null);
 
   const [formData, setFormData] = useState({
     name: '', genericName: '', category: '', description: '', price: '', stock: '', requiresPrescription: false, expiryDate: ''
@@ -23,7 +35,7 @@ export default function MedicineManager({ initialMedicines }: { initialMedicines
     return true;
   });
 
-  const handleEdit = (med: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => {
+  const handleEdit = (med: Medicine) => {
     setCurrentMed(med);
     setIsEditing(true);
     setFormData({

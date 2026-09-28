@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { updateOrderStatus, updatePaymentStatus } from './actions';
 
 export default function OrderManager({ initialOrders }: { initialOrders: any /* eslint-disable-line @typescript-eslint/no-explicit-any */[] }) {
-  const [orders, setOrders] = useState(initialOrders);
+  const [orders] = useState(initialOrders);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
   const [paymentFilter, setPaymentFilter] = useState('ALL');

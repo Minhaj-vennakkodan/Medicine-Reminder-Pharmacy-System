@@ -2,10 +2,22 @@
 
 import { useState } from 'react';
 
-export default function CustomerManager({ initialCustomers }: { initialCustomers: any /* eslint-disable-line @typescript-eslint/no-explicit-any */[] }) {
-  const [customers, setCustomers] = useState(initialCustomers);
+type Customer = {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string | null;
+  role: string;
+  createdAt: string | Date;
+  orders: { id: string; totalAmount: number; status: string }[];
+  prescriptions: { id: string; createdAt: string | Date; status: string }[];
+  reminders: { id: string; medicineName: string; dosage: string; time: string }[];
+};
+
+export default function CustomerManager({ initialCustomers }: { initialCustomers: Customer[] }) {
+  const [customers] = useState(initialCustomers);
   const [search, setSearch] = useState('');
-  const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [selectedUser, setSelectedUser] = useState<Customer | null>(null);
 
   const filtered = customers.filter(c => {
     if (search && !c.name.toLowerCase().includes(search.toLowerCase()) && !c.email.toLowerCase().includes(search.toLowerCase())) return false;
@@ -84,7 +96,7 @@ export default function CustomerManager({ initialCustomers }: { initialCustomers
               <h4 style={{ color: 'var(--color-primary)', marginBottom: '0.5rem' }}>Orders ({selectedUser.orders.length})</h4>
               {selectedUser.orders.length > 0 ? (
                 <ul style={{ paddingLeft: '1.5rem', fontSize: '0.9rem' }}>
-                  {selectedUser.orders.map((o: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => (
+                  {selectedUser.orders.map((o) => (
                     <li key={o.id}>Order #{o.id.slice(-6).toUpperCase()} - ${o.totalAmount.toFixed(2)} - {o.status}</li>
                   ))}
                 </ul>
@@ -95,7 +107,7 @@ export default function CustomerManager({ initialCustomers }: { initialCustomers
               <h4 style={{ color: 'var(--color-primary)', marginBottom: '0.5rem' }}>Prescriptions ({selectedUser.prescriptions.length})</h4>
               {selectedUser.prescriptions.length > 0 ? (
                 <ul style={{ paddingLeft: '1.5rem', fontSize: '0.9rem' }}>
-                  {selectedUser.prescriptions.map((rx: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => (
+                  {selectedUser.prescriptions.map((rx) => (
                     <li key={rx.id}>Date: {new Date(rx.createdAt).toLocaleDateString()} - {rx.status}</li>
                   ))}
                 </ul>
@@ -106,7 +118,7 @@ export default function CustomerManager({ initialCustomers }: { initialCustomers
               <h4 style={{ color: 'var(--color-primary)', marginBottom: '0.5rem' }}>Active Reminders ({selectedUser.reminders.length})</h4>
               {selectedUser.reminders.length > 0 ? (
                 <ul style={{ paddingLeft: '1.5rem', fontSize: '0.9rem' }}>
-                  {selectedUser.reminders.map((r: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => (
+                  {selectedUser.reminders.map((r) => (
                     <li key={r.id}>{r.medicineName} - {r.dosage} at {r.time}</li>
                   ))}
                 </ul>

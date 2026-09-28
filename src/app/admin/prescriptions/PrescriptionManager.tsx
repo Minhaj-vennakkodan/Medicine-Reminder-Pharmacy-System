@@ -3,12 +3,22 @@
 import { useState } from 'react';
 import { updatePrescriptionStatus } from './actions';
 
-export default function PrescriptionManager({ initialPrescriptions }: { initialPrescriptions: any /* eslint-disable-line @typescript-eslint/no-explicit-any */[] }) {
-  const [prescriptions, setPrescriptions] = useState(initialPrescriptions);
+type Prescription = {
+  id: string;
+  createdAt: string | Date;
+  status: string;
+  notes?: string | null;
+  fileUrl?: string | null;
+  user: { name: string; email: string; phone?: string | null };
+  orders: { id: string; status: string }[];
+};
+
+export default function PrescriptionManager({ initialPrescriptions }: { initialPrescriptions: Prescription[] }) {
+  const [prescriptions] = useState(initialPrescriptions);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
   
-  const [selectedRx, setSelectedRx] = useState<any>(null);
+  const [selectedRx, setSelectedRx] = useState<Prescription | null>(null);
   const [notes, setNotes] = useState('');
 
   const filtered = prescriptions.filter(rx => {
@@ -17,7 +27,7 @@ export default function PrescriptionManager({ initialPrescriptions }: { initialP
     return true;
   });
 
-  const handleSelect = (rx: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => {
+  const handleSelect = (rx: Prescription) => {
     setSelectedRx(rx);
     setNotes(rx.notes || '');
   };
@@ -116,7 +126,7 @@ export default function PrescriptionManager({ initialPrescriptions }: { initialP
               <div style={{ marginBottom: '1.5rem' }}>
                 <strong>Related Orders:</strong>
                 <ul style={{ paddingLeft: '1.5rem', marginTop: '0.5rem', fontSize: '0.9rem' }}>
-                  {selectedRx.orders.map((o: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => (
+                  {selectedRx.orders.map((o) => (
                     <li key={o.id}>Order #{o.id.slice(-6).toUpperCase()} - {o.status}</li>
                   ))}
                 </ul>

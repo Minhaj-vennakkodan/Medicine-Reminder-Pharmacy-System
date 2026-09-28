@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-require-imports */
 const bcrypt = require('bcryptjs');
 const { PrismaClient } = require('@prisma/client');
 

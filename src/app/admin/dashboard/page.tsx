@@ -8,7 +8,6 @@ export default async function AdminDashboard() {
     totalMedicines,
     lowStockMedicines,
     outOfStockMedicines,
-    pendingOrders,
     pendingPrescriptions,
     recentOrders,
     recentPrescriptions
@@ -16,7 +15,6 @@ export default async function AdminDashboard() {
     prisma.medicine.count(),
     prisma.medicine.count({ where: { stock: { gt: 0, lte: 20 } } }),
     prisma.medicine.count({ where: { stock: { equals: 0 } } }),
-    prisma.order.count({ where: { status: 'PENDING' } }),
     prisma.prescription.count({ where: { status: 'PENDING' } }),
     prisma.order.findMany({
       take: 5,
