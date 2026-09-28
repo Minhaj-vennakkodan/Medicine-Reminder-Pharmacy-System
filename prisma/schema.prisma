@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  phone         String?
+  passwordHash  String
+  role          String         @default("CUSTOMER") // CUSTOMER or ADMIN
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  prescriptions Prescription[]
+  orders        Order[]
+  cartItems     CartItem[]
+  reminders     Reminder[]
+}
+
+model Medicine {
+  id                   String      @id @default(cuid())
+  name                 String
+  genericName          String?
+  category             String?
+  description          String
+  price                Float
+  stock                Int
+  requiresPrescription Boolean     @default(false)
+  expiryDate           DateTime?
+  imageUrl             String?
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+  orderItems           OrderItem[]
+  cartItems            CartItem[]
+}
+
+model Prescription {
+  id        String   @id @default(cuid())
+  fileUrl   String
+  status    String   @default("PENDING") // PENDING, VERIFIED, REJECTED
+  notes     String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+}
+
+model Order {
+  id             String        @id @default(cuid())
+  userId         String
+  user           User          @relation(fields: [userId], references: [id])
+  totalAmount    Float
+  status         String        @default("PENDING") // Order Placed, Prescription Verified, Pharmacy Processing, Packed, Out for Delivery, Delivered, Cancelled
+  paymentStatus  String        @default("PENDING") // PENDING, PAID, FAILED
+  prescriptionId String?
+  prescription   Prescription? @relation(fields: [prescriptionId], references: [id])
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  items          OrderItem[]
+}
+
+model OrderItem {
+  id         String   @id @default(cuid())
+  orderId    String
+  order      Order    @relation(fields: [orderId], references: [id])
+  medicineId String
+  medicine   Medicine @relation(fields: [medicineId], references: [id])
+  quantity   Int
+  price      Float
+}
+
+model CartItem {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  medicineId String
+  medicine   Medicine @relation(fields: [medicineId], references: [id])
+  quantity   Int
+}
+
+model Reminder {
+  id               String        @id @default(cuid())
+  userId           String
+  user             User          @relation(fields: [userId], references: [id])
+  medicineName     String
+  medicineId       String?
+  dosage           String
+  time             String        // "HH:MM"
+  frequency        String        @default("DAILY") // "DAILY", "WEEKLY", "AS_NEEDED"
+  daysOfWeek       String?       // "Mon,Tue,Wed"
+  mealTiming       String?       @default("ANYTIME") // "BEFORE_MEAL", "AFTER_MEAL", "WITH_MEAL", "ANYTIME"
+  startDate        DateTime      @default(now())
+  endDate          DateTime?
+  notificationPref String        @default("APP") // "APP", "EMAIL", "SMS"
+  notes            String?
+  isActive         Boolean       @default(true)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  logs             ReminderLog[]
+}
+
+model ReminderLog {
+  id           String   @id @default(cuid())
+  reminderId   String
+  reminder     Reminder @relation(fields: [reminderId], references: [id], onDelete: Cascade)
+  scheduledFor DateTime
+  status       String   @default("PENDING") // "PENDING", "COMPLETED", "MISSED"
+  completedAt  DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@unique([reminderId, scheduledFor])
+}
