@@ -22,8 +22,8 @@ export default function ReminderStatusForm({ reminder, scheduledFor }: { reminde
       style={{
         padding: '0.25rem 0.5rem',
         borderRadius: '4px',
-        border: '1px solid var(--glass-border)',
-        background: 'var(--glass-bg)',
+        border: '1px solid #E2E8F0',
+        background: 'var(--color-surface)',
         color: 'var(--color-text)',
         fontSize: '0.875rem'
       }}

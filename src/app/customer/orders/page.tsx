@@ -17,15 +17,15 @@ export default async function OrdersListPage() {
       <h1 style={{ color: 'var(--color-primary)', marginBottom: '2rem' }}>My Orders</h1>
 
       {orders.length === 0 ? (
-        <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>
+        <div className="card" style={{ padding: '3rem', textAlign: 'center' }}>
           <h3 style={{ marginBottom: '1rem', color: 'var(--color-text-muted)' }}>You haven&apos;t placed any orders yet.</h3>
           <Link href="/customer/medicines" className="btn btn-primary">Start Shopping</Link>
         </div>
       ) : (
-        <div className="glass-panel" style={{ overflowX: 'auto' }}>
+        <div className="card" style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ borderBottom: '2px solid var(--glass-border)' }}>
+              <tr style={{ borderBottom: '2px solid #E2E8F0' }}>
                 <th style={{ padding: '1rem' }}>Order ID</th>
                 <th style={{ padding: '1rem' }}>Date</th>
                 <th style={{ padding: '1rem' }}>Status</th>
@@ -35,7 +35,7 @@ export default async function OrdersListPage() {
             </thead>
             <tbody>
               {orders.map(order => (
-                <tr key={order.id} style={{ borderBottom: '1px solid var(--glass-border)' }}>
+                <tr key={order.id} style={{ borderBottom: '1px solid #E2E8F0' }}>
                   <td style={{ padding: '1rem', fontWeight: 'bold' }}>#{order.id.slice(-6).toUpperCase()}</td>
                   <td style={{ padding: '1rem' }}>{new Date(order.createdAt).toLocaleDateString()}</td>
                   <td style={{ padding: '1rem' }}>

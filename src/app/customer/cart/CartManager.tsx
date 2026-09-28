@@ -36,17 +36,17 @@ export default function CartManager({ cartItems }: { cartItems: any /* eslint-di
       <h1 style={{ color: 'var(--color-primary)', marginBottom: '2rem' }}>Shopping Cart</h1>
 
       {cartItems.length === 0 ? (
-        <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>
+        <div className="card" style={{ padding: '3rem', textAlign: 'center' }}>
           <h3 style={{ marginBottom: '1rem', color: 'var(--color-text-muted)' }}>Your cart is empty</h3>
           <Link href="/customer/medicines" className="btn btn-primary">Start Shopping</Link>
         </div>
       ) : (
         <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', alignItems: 'flex-start' }}>
           
-          <div className="glass-panel" style={{ flex: '1 1 500px', padding: '1.5rem' }}>
+          <div className="card" style={{ flex: '1 1 500px', padding: '1.5rem' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
-                <tr style={{ borderBottom: '2px solid var(--glass-border)' }}>
+                <tr style={{ borderBottom: '2px solid #E2E8F0' }}>
                   <th style={{ padding: '1rem 0' }}>Product</th>
                   <th style={{ padding: '1rem 0' }}>Price</th>
                   <th style={{ padding: '1rem 0' }}>Quantity</th>
@@ -55,7 +55,7 @@ export default function CartManager({ cartItems }: { cartItems: any /* eslint-di
               </thead>
               <tbody>
                 {cartItems.map(item => (
-                  <tr key={item.id} style={{ borderBottom: '1px solid var(--glass-border)' }}>
+                  <tr key={item.id} style={{ borderBottom: '1px solid #E2E8F0' }}>
                     <td style={{ padding: '1.5rem 0' }}>
                       <div style={{ fontWeight: 'bold' }}>{item.medicine.name}</div>
                       {item.medicine.requiresPrescription && (
@@ -80,8 +80,8 @@ export default function CartManager({ cartItems }: { cartItems: any /* eslint-di
             </table>
           </div>
 
-          <div className="glass-panel" style={{ flex: '0 0 300px', padding: '1.5rem' }}>
-            <h3 style={{ margin: '0 0 1.5rem 0', borderBottom: '1px solid var(--glass-border)', paddingBottom: '1rem' }}>Order Summary</h3>
+          <div className="card" style={{ flex: '0 0 300px', padding: '1.5rem' }}>
+            <h3 style={{ margin: '0 0 1.5rem 0', borderBottom: '1px solid #E2E8F0', paddingBottom: '1rem' }}>Order Summary</h3>
             
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
               <span>Subtotal:</span>
@@ -93,7 +93,7 @@ export default function CartManager({ cartItems }: { cartItems: any /* eslint-di
               <span>{deliveryCharge === 0 ? <span style={{ color: 'var(--color-success)' }}>Free</span> : `$${deliveryCharge.toFixed(2)}`}</span>
             </div>
             
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.25rem', fontWeight: 'bold', borderTop: '1px solid var(--glass-border)', paddingTop: '1rem', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.25rem', fontWeight: 'bold', borderTop: '1px solid #E2E8F0', paddingTop: '1rem', marginBottom: '1.5rem' }}>
               <span>Total:</span>
               <span>${total.toFixed(2)}</span>
             </div>

@@ -49,7 +49,7 @@ export default function CheckoutClient({ cartItems, verifiedPrescriptions }: { c
         {/* Left Form */}
         <div style={{ flex: '1 1 500px', display: 'grid', gap: '1.5rem' }}>
           
-          <div className="glass-panel" style={{ padding: '1.5rem' }}>
+          <div className="card" style={{ padding: '1.5rem' }}>
             <h3 style={{ marginBottom: '1rem' }}>Delivery Address</h3>
             <div style={{ display: 'grid', gap: '1rem' }}>
               <input required type="text" placeholder="Full Name" style={{ padding: '0.5rem', width: '100%', borderRadius: '4px', border: '1px solid #ccc' }} />
@@ -58,7 +58,7 @@ export default function CheckoutClient({ cartItems, verifiedPrescriptions }: { c
             </div>
           </div>
 
-          <div className="glass-panel" style={{ padding: '1.5rem' }}>
+          <div className="card" style={{ padding: '1.5rem' }}>
             <h3 style={{ marginBottom: '1rem' }}>Payment Method</h3>
             <div style={{ display: 'grid', gap: '1rem' }}>
               <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -73,7 +73,7 @@ export default function CheckoutClient({ cartItems, verifiedPrescriptions }: { c
           </div>
 
           {requiresRx && (
-            <div className="glass-panel" style={{ padding: '1.5rem', border: '2px solid var(--color-warning)' }}>
+            <div className="card" style={{ padding: '1.5rem', border: '2px solid var(--color-warning)' }}>
               <h3 style={{ marginBottom: '1rem', color: 'var(--color-warning)' }}>Prescription Verification</h3>
               <p style={{ fontSize: '0.875rem', marginBottom: '1rem' }}>You have selected medicines that require a verified prescription. Please select one from your uploaded documents.</p>
               
@@ -95,8 +95,8 @@ export default function CheckoutClient({ cartItems, verifiedPrescriptions }: { c
         </div>
 
         {/* Right Summary */}
-        <div className="glass-panel" style={{ flex: '0 0 300px', padding: '1.5rem' }}>
-          <h3 style={{ margin: '0 0 1.5rem 0', borderBottom: '1px solid var(--glass-border)', paddingBottom: '1rem' }}>Order Summary</h3>
+        <div className="card" style={{ flex: '0 0 300px', padding: '1.5rem' }}>
+          <h3 style={{ margin: '0 0 1.5rem 0', borderBottom: '1px solid #E2E8F0', paddingBottom: '1rem' }}>Order Summary</h3>
           
           <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1.5rem 0' }}>
             {cartItems.map(item => (
@@ -117,7 +117,7 @@ export default function CheckoutClient({ cartItems, verifiedPrescriptions }: { c
             <span>{deliveryCharge === 0 ? 'Free' : `$${deliveryCharge.toFixed(2)}`}</span>
           </div>
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.25rem', fontWeight: 'bold', borderTop: '1px solid var(--glass-border)', paddingTop: '1rem', marginBottom: '1.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.25rem', fontWeight: 'bold', borderTop: '1px solid #E2E8F0', paddingTop: '1rem', marginBottom: '1.5rem' }}>
             <span>Total:</span>
             <span>${total.toFixed(2)}</span>
           </div>

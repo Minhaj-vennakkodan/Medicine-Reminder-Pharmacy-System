@@ -22,7 +22,7 @@ export default async function AddReminderPage() {
         </Link>
       </div>
 
-      <div className="glass-panel" style={{ padding: '2rem', maxWidth: '800px' }}>
+      <div className="card" style={{ padding: '2rem', maxWidth: '800px' }}>
         <form action={createReminder} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -32,7 +32,7 @@ export default async function AddReminderPage() {
               id="medicineName" 
               name="medicineName" 
               required 
-              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               placeholder="e.g. Paracetamol"
             />
           </div>
@@ -42,7 +42,7 @@ export default async function AddReminderPage() {
             <select 
               id="medicineId" 
               name="medicineId"
-              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
             >
               <option value="">-- None --</option>
               {medicines.map(m => (
@@ -59,7 +59,7 @@ export default async function AddReminderPage() {
                 id="dosage" 
                 name="dosage" 
                 required 
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
                 placeholder="e.g. 1 pill, 500mg"
               />
             </div>
@@ -70,7 +70,7 @@ export default async function AddReminderPage() {
                 id="time" 
                 name="time" 
                 required 
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               />
             </div>
           </div>
@@ -81,7 +81,7 @@ export default async function AddReminderPage() {
               <select 
                 id="frequency" 
                 name="frequency"
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               >
                 <option value="DAILY">Daily</option>
                 <option value="WEEKLY">Weekly</option>
@@ -93,7 +93,7 @@ export default async function AddReminderPage() {
               <select 
                 id="mealTiming" 
                 name="mealTiming"
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               >
                 <option value="ANYTIME">Anytime</option>
                 <option value="BEFORE_MEAL">Before Meal</option>
@@ -112,7 +112,7 @@ export default async function AddReminderPage() {
                 name="startDate" 
                 required 
                 defaultValue={new Date().toISOString().split('T')[0]}
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               />
             </div>
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -121,7 +121,7 @@ export default async function AddReminderPage() {
                 type="date" 
                 id="endDate" 
                 name="endDate" 
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               />
             </div>
           </div>
@@ -131,7 +131,7 @@ export default async function AddReminderPage() {
             <select 
               id="notificationPref" 
               name="notificationPref"
-              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
             >
               <option value="APP">App Only</option>
               <option value="EMAIL">Email</option>
@@ -145,7 +145,7 @@ export default async function AddReminderPage() {
               id="notes" 
               name="notes" 
               rows={3}
-              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               placeholder="Any special instructions..."
             />
           </div>

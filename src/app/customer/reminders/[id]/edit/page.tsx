@@ -35,7 +35,7 @@ export default async function EditReminderPage({ params }: { params: { id: strin
         </Link>
       </div>
 
-      <div className="glass-panel" style={{ padding: '2rem', maxWidth: '800px' }}>
+      <div className="card" style={{ padding: '2rem', maxWidth: '800px' }}>
         <form action={updateAction} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -46,7 +46,7 @@ export default async function EditReminderPage({ params }: { params: { id: strin
               name="medicineName" 
               required 
               defaultValue={reminder.medicineName}
-              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
             />
           </div>
 
@@ -56,7 +56,7 @@ export default async function EditReminderPage({ params }: { params: { id: strin
               id="medicineId" 
               name="medicineId"
               defaultValue={reminder.medicineId || ''}
-              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
             >
               <option value="">-- None --</option>
               {medicines.map(m => (
@@ -74,7 +74,7 @@ export default async function EditReminderPage({ params }: { params: { id: strin
                 name="dosage" 
                 required 
                 defaultValue={reminder.dosage}
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               />
             </div>
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -85,7 +85,7 @@ export default async function EditReminderPage({ params }: { params: { id: strin
                 name="time" 
                 required 
                 defaultValue={reminder.time}
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               />
             </div>
           </div>
@@ -97,7 +97,7 @@ export default async function EditReminderPage({ params }: { params: { id: strin
                 id="frequency" 
                 name="frequency"
                 defaultValue={reminder.frequency}
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               >
                 <option value="DAILY">Daily</option>
                 <option value="WEEKLY">Weekly</option>
@@ -110,7 +110,7 @@ export default async function EditReminderPage({ params }: { params: { id: strin
                 id="mealTiming" 
                 name="mealTiming"
                 defaultValue={reminder.mealTiming || 'ANYTIME'}
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               >
                 <option value="ANYTIME">Anytime</option>
                 <option value="BEFORE_MEAL">Before Meal</option>
@@ -129,7 +129,7 @@ export default async function EditReminderPage({ params }: { params: { id: strin
                 name="startDate" 
                 required 
                 defaultValue={reminder.startDate.toISOString().split('T')[0]}
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               />
             </div>
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -139,7 +139,7 @@ export default async function EditReminderPage({ params }: { params: { id: strin
                 id="endDate" 
                 name="endDate" 
                 defaultValue={reminder.endDate ? reminder.endDate.toISOString().split('T')[0] : ''}
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               />
             </div>
           </div>
@@ -151,7 +151,7 @@ export default async function EditReminderPage({ params }: { params: { id: strin
                 id="notificationPref" 
                 name="notificationPref"
                 defaultValue={reminder.notificationPref}
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               >
                 <option value="APP">App Only</option>
                 <option value="EMAIL">Email</option>
@@ -165,7 +165,7 @@ export default async function EditReminderPage({ params }: { params: { id: strin
                 id="isActive" 
                 name="isActive"
                 defaultValue={reminder.isActive ? 'true' : 'false'}
-                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+                style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
               >
                 <option value="true">Active</option>
                 <option value="false">Paused</option>
@@ -180,7 +180,7 @@ export default async function EditReminderPage({ params }: { params: { id: strin
               name="notes" 
               rows={3}
               defaultValue={reminder.notes || ''}
-              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--glass-border)', background: 'var(--glass-bg)', color: 'var(--color-text)' }} 
+              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', background: 'var(--color-surface)', color: 'var(--color-text)' }} 
             />
           </div>
 

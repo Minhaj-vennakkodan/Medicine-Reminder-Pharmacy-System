@@ -23,7 +23,7 @@ export default async function OrderSuccessPage({ searchParams }: { searchParams:
 
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
-      <div className="glass-panel" style={{ padding: '3rem', borderTop: '4px solid var(--color-success)' }}>
+      <div className="card" style={{ padding: '3rem', borderTop: '4px solid var(--color-success)' }}>
         <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🎉</div>
         <h1 style={{ color: 'var(--color-primary)', marginBottom: '1rem' }}>Order Confirmed!</h1>
         <p style={{ marginBottom: '2rem', color: 'var(--color-text-muted)' }}>

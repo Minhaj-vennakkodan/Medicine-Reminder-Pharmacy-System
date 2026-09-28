@@ -57,10 +57,10 @@ export default function OrderManager({ initialOrders }: { initialOrders: any /* 
         </select>
       </div>
 
-      <div className="glass-panel" style={{ overflowX: 'auto' }}>
+      <div className="card" style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
-            <tr style={{ borderBottom: '2px solid var(--glass-border)' }}>
+            <tr style={{ borderBottom: '2px solid #E2E8F0' }}>
               <th style={{ padding: '1rem' }}>Order Info</th>
               <th style={{ padding: '1rem' }}>Customer</th>
               <th style={{ padding: '1rem' }}>Total</th>
@@ -70,7 +70,7 @@ export default function OrderManager({ initialOrders }: { initialOrders: any /* 
           </thead>
           <tbody>
             {filtered.map(order => (
-              <tr key={order.id} style={{ borderBottom: '1px solid var(--glass-border)' }}>
+              <tr key={order.id} style={{ borderBottom: '1px solid #E2E8F0' }}>
                 <td style={{ padding: '1rem' }}>
                   <strong>#{order.id.slice(-6).toUpperCase()}</strong>
                   <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>

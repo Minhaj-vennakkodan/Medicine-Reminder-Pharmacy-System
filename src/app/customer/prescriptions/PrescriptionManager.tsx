@@ -31,7 +31,7 @@ export default function PrescriptionManager({ prescriptions }: { prescriptions: 
     <div>
       <h1 style={{ color: 'var(--color-primary)', marginBottom: '2rem' }}>My Prescriptions</h1>
 
-      <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem' }}>
+      <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
         <h3 style={{ marginBottom: '1rem' }}>Upload New Prescription</h3>
         <form onSubmit={handleUpload} style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
           <input 
@@ -53,14 +53,14 @@ export default function PrescriptionManager({ prescriptions }: { prescriptions: 
       <h3 style={{ marginBottom: '1rem' }}>Uploaded Prescriptions</h3>
       
       {prescriptions.length === 0 ? (
-        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+        <div className="card" style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
           You have not uploaded any prescriptions yet.
         </div>
       ) : (
-        <div className="glass-panel" style={{ overflowX: 'auto' }}>
+        <div className="card" style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ borderBottom: '2px solid var(--glass-border)' }}>
+              <tr style={{ borderBottom: '2px solid #E2E8F0' }}>
                 <th style={{ padding: '1rem' }}>Date Uploaded</th>
                 <th style={{ padding: '1rem' }}>Document</th>
                 <th style={{ padding: '1rem' }}>Status</th>
@@ -69,7 +69,7 @@ export default function PrescriptionManager({ prescriptions }: { prescriptions: 
             </thead>
             <tbody>
               {prescriptions.map(rx => (
-                <tr key={rx.id} style={{ borderBottom: '1px solid var(--glass-border)' }}>
+                <tr key={rx.id} style={{ borderBottom: '1px solid #E2E8F0' }}>
                   <td style={{ padding: '1rem' }}>{new Date(rx.createdAt).toLocaleDateString()}</td>
                   <td style={{ padding: '1rem' }}>
                     <a href={rx.fileUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--color-primary)', textDecoration: 'underline' }}>View File</a>

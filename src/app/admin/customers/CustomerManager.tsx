@@ -29,10 +29,10 @@ export default function CustomerManager({ initialCustomers }: { initialCustomers
       <div style={{ display: 'grid', gridTemplateColumns: selectedUser ? '1fr 1fr' : '1fr', gap: '2rem' }}>
         
         {/* List */}
-        <div className="glass-panel" style={{ overflowX: 'auto', alignSelf: 'start' }}>
+        <div className="card" style={{ overflowX: 'auto', alignSelf: 'start' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ borderBottom: '2px solid var(--glass-border)' }}>
+              <tr style={{ borderBottom: '2px solid #E2E8F0' }}>
                 <th style={{ padding: '1rem' }}>Name</th>
                 <th style={{ padding: '1rem' }}>Email</th>
                 <th style={{ padding: '1rem' }}>Joined</th>
@@ -41,7 +41,7 @@ export default function CustomerManager({ initialCustomers }: { initialCustomers
             </thead>
             <tbody>
               {filtered.map(user => (
-                <tr key={user.id} style={{ borderBottom: '1px solid var(--glass-border)', backgroundColor: selectedUser?.id === user.id ? 'var(--color-background)' : 'transparent' }}>
+                <tr key={user.id} style={{ borderBottom: '1px solid #E2E8F0', backgroundColor: selectedUser?.id === user.id ? 'var(--color-background)' : 'transparent' }}>
                   <td style={{ padding: '1rem' }}>
                     <strong>{user.name}</strong>
                   </td>
@@ -78,7 +78,7 @@ export default function CustomerManager({ initialCustomers }: { initialCustomers
               <div><strong>Registered:</strong> {new Date(selectedUser.createdAt).toLocaleString()}</div>
             </div>
 
-            <hr style={{ border: 'none', borderTop: '1px solid var(--glass-border)', margin: '1.5rem 0' }} />
+            <hr style={{ border: 'none', borderTop: '1px solid #E2E8F0', margin: '1.5rem 0' }} />
             
             <div style={{ marginBottom: '1.5rem' }}>
               <h4 style={{ color: 'var(--color-primary)', marginBottom: '0.5rem' }}>Orders ({selectedUser.orders.length})</h4>

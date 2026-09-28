@@ -51,10 +51,10 @@ export default function PrescriptionManager({ initialPrescriptions }: { initialP
       <div style={{ display: 'grid', gridTemplateColumns: selectedRx ? '1fr 1fr' : '1fr', gap: '2rem' }}>
         
         {/* List */}
-        <div className="glass-panel" style={{ overflowX: 'auto', alignSelf: 'start' }}>
+        <div className="card" style={{ overflowX: 'auto', alignSelf: 'start' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ borderBottom: '2px solid var(--glass-border)' }}>
+              <tr style={{ borderBottom: '2px solid #E2E8F0' }}>
                 <th style={{ padding: '1rem' }}>Customer</th>
                 <th style={{ padding: '1rem' }}>Date</th>
                 <th style={{ padding: '1rem' }}>Status</th>
@@ -63,7 +63,7 @@ export default function PrescriptionManager({ initialPrescriptions }: { initialP
             </thead>
             <tbody>
               {filtered.map(rx => (
-                <tr key={rx.id} style={{ borderBottom: '1px solid var(--glass-border)', backgroundColor: selectedRx?.id === rx.id ? 'var(--color-background)' : 'transparent' }}>
+                <tr key={rx.id} style={{ borderBottom: '1px solid #E2E8F0', backgroundColor: selectedRx?.id === rx.id ? 'var(--color-background)' : 'transparent' }}>
                   <td style={{ padding: '1rem' }}>
                     <strong>{rx.user.name}</strong>
                     <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{rx.user.email}</div>

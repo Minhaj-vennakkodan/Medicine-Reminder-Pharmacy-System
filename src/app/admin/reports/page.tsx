@@ -60,21 +60,21 @@ export default async function ReportsPage() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
         
         {/* Top Selling Medicines */}
-        <div className="glass-panel" style={{ padding: '1.5rem' }}>
+        <div className="card" style={{ padding: '1.5rem' }}>
           <h3 style={{ marginBottom: '1rem', color: 'var(--color-primary)' }}>Top Selling Medicines</h3>
           {topMedicinesWithNames.length === 0 ? (
             <p style={{ color: 'var(--color-text-muted)' }}>No sales data available yet.</p>
           ) : (
             <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--glass-border)' }}>
+                <tr style={{ borderBottom: '1px solid #E2E8F0' }}>
                   <th style={{ padding: '0.5rem 0' }}>Medicine Name</th>
                   <th style={{ padding: '0.5rem 0' }}>Units Sold</th>
                 </tr>
               </thead>
               <tbody>
                 {topMedicinesWithNames.map((med, idx) => (
-                  <tr key={idx} style={{ borderBottom: '1px solid var(--glass-border)' }}>
+                  <tr key={idx} style={{ borderBottom: '1px solid #E2E8F0' }}>
                     <td style={{ padding: '0.75rem 0' }}>{med.name}</td>
                     <td style={{ padding: '0.75rem 0' }}>{med.quantity}</td>
                   </tr>
@@ -85,7 +85,7 @@ export default async function ReportsPage() {
         </div>
 
         {/* Order Status Summary */}
-        <div className="glass-panel" style={{ padding: '1.5rem' }}>
+        <div className="card" style={{ padding: '1.5rem' }}>
           <h3 style={{ marginBottom: '1rem', color: 'var(--color-primary)' }}>Order Status Summary</h3>
           {orderStatusGroups.length === 0 ? (
             <p style={{ color: 'var(--color-text-muted)' }}>No orders placed yet.</p>
@@ -110,7 +110,7 @@ export default async function ReportsPage() {
 
 function StatCard({ title, value, color }: { title: string, value: string, color: string }) {
   return (
-    <div className="glass-panel" style={{ padding: '1.5rem', borderTop: `4px solid ${color}` }}>
+    <div className="card" style={{ padding: '1.5rem', borderTop: `4px solid ${color}` }}>
       <h4 style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem', textTransform: 'uppercase', marginBottom: '0.5rem' }}>{title}</h4>
       <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--color-text-main)' }}>{value}</div>
     </div>

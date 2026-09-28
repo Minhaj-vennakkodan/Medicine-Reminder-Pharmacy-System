@@ -21,7 +21,7 @@ export default function MedicineSearch({ initialMedicines, categories }: { initi
       <h1 style={{ color: 'var(--color-primary)', marginBottom: '2rem' }}>Shop Medicines</h1>
       
       {/* Filters */}
-      <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+      <div className="card" style={{ padding: '1.5rem', marginBottom: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
         <input 
           type="text" 
           placeholder="Search by name or generic name..." 
@@ -43,7 +43,7 @@ export default function MedicineSearch({ initialMedicines, categories }: { initi
       {/* Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1.5rem' }}>
         {filtered.map(med => (
-          <div key={med.id} className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+          <div key={med.id} className="card" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
             {med.requiresPrescription && (
               <span style={{ alignSelf: 'flex-start', backgroundColor: 'var(--color-warning)', color: 'white', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', marginBottom: '0.5rem' }}>
                 Rx Required
@@ -68,7 +68,7 @@ export default function MedicineSearch({ initialMedicines, categories }: { initi
       </div>
       
       {filtered.length === 0 && (
-        <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+        <div className="card" style={{ padding: '3rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
           No medicines found matching your criteria.
         </div>
       )}

@@ -63,8 +63,8 @@ export default async function RemindersDashboard() {
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
-        <div className="glass-panel" style={{ padding: '2rem' }}>
-          <h2 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Today&apos;s Schedule</h2>
+        <div className="card" style={{ padding: '2rem' }}>
+          <h2 style={{ marginBottom: '1rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.5rem' }}>Today&apos;s Schedule</h2>
           {todayReminders.length === 0 ? (
             <p style={{ color: 'var(--color-text-muted)' }}>No reminders scheduled for today.</p>
           ) : (
@@ -82,14 +82,14 @@ export default async function RemindersDashboard() {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          <div className="glass-panel" style={{ padding: '2rem' }}>
-            <h2 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Upcoming</h2>
+          <div className="card" style={{ padding: '2rem' }}>
+            <h2 style={{ marginBottom: '1rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.5rem' }}>Upcoming</h2>
             {upcomingReminders.length === 0 ? (
               <p style={{ color: 'var(--color-text-muted)' }}>No upcoming reminders today.</p>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {upcomingReminders.map(r => (
-                  <div key={r.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--glass-bg)', padding: '1rem', borderRadius: '8px' }}>
+                  <div key={r.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--color-surface)', padding: '1rem', borderRadius: '8px' }}>
                     <div>
                       <strong>{r.medicineName}</strong>
                       <div style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>{r.time} - {r.dosage}</div>
@@ -100,8 +100,8 @@ export default async function RemindersDashboard() {
             )}
           </div>
 
-          <div className="glass-panel" style={{ padding: '2rem' }}>
-            <h2 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Adherence</h2>
+          <div className="card" style={{ padding: '2rem' }}>
+            <h2 style={{ marginBottom: '1rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.5rem' }}>Adherence</h2>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100px' }}>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--color-primary)' }}>

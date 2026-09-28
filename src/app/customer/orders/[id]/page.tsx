@@ -48,7 +48,7 @@ export default async function OrderTrackingPage({ params }: { params: { id: stri
       <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', alignItems: 'flex-start' }}>
         
         {/* Tracking Timeline */}
-        <div className="glass-panel" style={{ flex: '2 1 400px', padding: '2rem' }}>
+        <div className="card" style={{ flex: '2 1 400px', padding: '2rem' }}>
           <h3 style={{ marginBottom: '2rem' }}>Order Status</h3>
           
           {order.status === 'Cancelled' ? (
@@ -94,7 +94,7 @@ export default async function OrderTrackingPage({ params }: { params: { id: stri
         </div>
 
         {/* Order Summary */}
-        <div className="glass-panel" style={{ flex: '1 1 300px', padding: '2rem' }}>
+        <div className="card" style={{ flex: '1 1 300px', padding: '2rem' }}>
           <h3 style={{ marginBottom: '1.5rem' }}>Order Summary</h3>
           <div style={{ display: 'grid', gap: '0.5rem', fontSize: '0.875rem', marginBottom: '1.5rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -115,7 +115,7 @@ export default async function OrderTrackingPage({ params }: { params: { id: stri
             )}
           </div>
 
-          <hr style={{ border: 'none', borderTop: '1px solid var(--glass-border)', margin: '1rem 0' }} />
+          <hr style={{ border: 'none', borderTop: '1px solid #E2E8F0', margin: '1rem 0' }} />
 
           <h4 style={{ marginBottom: '1rem' }}>Items</h4>
           <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1.5rem 0', fontSize: '0.875rem' }}>
@@ -127,7 +127,7 @@ export default async function OrderTrackingPage({ params }: { params: { id: stri
             ))}
           </ul>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.25rem', fontWeight: 'bold', borderTop: '1px solid var(--glass-border)', paddingTop: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.25rem', fontWeight: 'bold', borderTop: '1px solid #E2E8F0', paddingTop: '1rem' }}>
             <span>Total:</span>
             <span>${order.totalAmount.toFixed(2)}</span>
           </div>

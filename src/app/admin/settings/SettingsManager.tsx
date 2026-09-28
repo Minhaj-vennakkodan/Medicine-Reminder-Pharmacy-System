@@ -40,7 +40,7 @@ export default function SettingsManager() {
         </div>
 
         {/* Content Panel */}
-        <div className="glass-panel" style={{ flex: 1, padding: '2rem' }}>
+        <div className="card" style={{ flex: 1, padding: '2rem' }}>
           <h2 style={{ marginBottom: '1.5rem', color: 'var(--color-text-main)' }}>{activeTab}</h2>
           
           <form onSubmit={handleSave}>

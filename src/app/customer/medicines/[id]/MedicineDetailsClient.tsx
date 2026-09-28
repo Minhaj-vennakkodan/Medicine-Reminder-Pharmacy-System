@@ -25,7 +25,7 @@ export default function MedicineDetailsClient({ medicine }: { medicine: any /* e
   };
 
   return (
-    <div className="glass-panel" style={{ padding: '2rem', display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
+    <div className="card" style={{ padding: '2rem', display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
       
       <div style={{ flex: '1 1 300px', backgroundColor: 'var(--color-surface)', borderRadius: 'var(--border-radius)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '300px' }}>
         <span style={{ color: 'var(--color-text-muted)', fontSize: '5rem' }}>💊</span>

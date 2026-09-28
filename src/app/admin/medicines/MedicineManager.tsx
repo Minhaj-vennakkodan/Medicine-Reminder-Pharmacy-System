@@ -103,10 +103,10 @@ export default function MedicineManager({ initialMedicines }: { initialMedicines
         </select>
       </div>
 
-      <div className="glass-panel" style={{ overflowX: 'auto' }}>
+      <div className="card" style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
           <thead>
-            <tr style={{ borderBottom: '2px solid var(--glass-border)' }}>
+            <tr style={{ borderBottom: '2px solid #E2E8F0' }}>
               <th style={{ padding: '1rem' }}>Name</th>
               <th style={{ padding: '1rem' }}>Price</th>
               <th style={{ padding: '1rem' }}>Stock</th>
@@ -116,7 +116,7 @@ export default function MedicineManager({ initialMedicines }: { initialMedicines
           </thead>
           <tbody>
             {filtered.map(med => (
-              <tr key={med.id} style={{ borderBottom: '1px solid var(--glass-border)' }}>
+              <tr key={med.id} style={{ borderBottom: '1px solid #E2E8F0' }}>
                 <td style={{ padding: '1rem' }}>
                   <strong>{med.name}</strong>
                   <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{med.category || 'Uncategorized'}</div>
