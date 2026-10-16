@@ -24,7 +24,7 @@ export async function createReminder(formData: FormData) {
 
   await prisma.reminder.create({
     data: {
-      userId: session.userId,
+      userId: session.id,
       medicineName,
       medicineId,
       dosage,
@@ -50,7 +50,7 @@ export async function updateReminder(id: string, formData: FormData) {
     where: { id }
   });
 
-  if (!reminder || reminder.userId !== session.userId) {
+  if (!reminder || reminder.userId !== session.id) {
     throw new Error("Unauthorized");
   }
 
@@ -98,7 +98,7 @@ export async function deleteReminder(id: string) {
     where: { id }
   });
 
-  if (!reminder || reminder.userId !== session.userId) {
+  if (!reminder || reminder.userId !== session.id) {
     throw new Error("Unauthorized");
   }
 
@@ -116,7 +116,7 @@ export async function logReminderStatus(reminderId: string, scheduledFor: Date, 
     where: { id: reminderId }
   });
 
-  if (!reminder || reminder.userId !== session.userId) {
+  if (!reminder || reminder.userId !== session.id) {
     throw new Error("Unauthorized");
   }
 

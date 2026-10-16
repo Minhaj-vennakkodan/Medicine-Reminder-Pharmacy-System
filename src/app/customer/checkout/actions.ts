@@ -12,7 +12,7 @@ export async function placeOrder(formData: FormData) {
   
   // Load Cart
   const cartItems = await prisma.cartItem.findMany({
-    where: { userId: user.userId },
+    where: { userId: user.id },
     include: { medicine: true }
   });
 
@@ -39,7 +39,7 @@ export async function placeOrder(formData: FormData) {
       throw new Error('A verified prescription is required for one or more items in your cart.');
     }
     const rx = await prisma.prescription.findUnique({ where: { id: prescriptionId } });
-    if (!rx || rx.userId !== user.userId || rx.status !== 'VERIFIED') {
+    if (!rx || rx.userId !== user.id || rx.status !== 'VERIFIED') {
       throw new Error('Selected prescription is invalid or not verified.');
     }
   }
@@ -52,7 +52,7 @@ export async function placeOrder(formData: FormData) {
     // 1. Create order
     const order = await tx.order.create({
       data: {
-        userId: user.userId,
+        userId: user.id,
         totalAmount,
         status: 'Order Placed',
         paymentStatus: paymentMethod === 'COD' ? 'PENDING' : 'PAID', // Simplified payment mock
@@ -79,7 +79,7 @@ export async function placeOrder(formData: FormData) {
 
     // 3. Clear cart
     await tx.cartItem.deleteMany({
-      where: { userId: user.userId }
+      where: { userId: user.id }
     });
 
     return order;

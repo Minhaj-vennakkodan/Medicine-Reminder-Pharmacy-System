@@ -8,7 +8,7 @@ export default async function PrescriptionsPage() {
   const user = await requireCustomer();
 
   const prescriptions = await prisma.prescription.findMany({
-    where: { userId: user.userId },
+    where: { userId: user.id },
     orderBy: { createdAt: 'desc' }
   });
 

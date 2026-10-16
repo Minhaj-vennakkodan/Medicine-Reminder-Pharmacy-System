@@ -22,7 +22,7 @@ export default function ReminderDeleteForm({ id }: { id: string }) {
       style={{
         padding: '0.25rem 0.75rem',
         fontSize: '0.8rem',
-        background: 'var(--color-error)'
+        background: 'var(--color-danger)'
       }}
     >
       {isPending ? 'Deleting...' : 'Delete'}

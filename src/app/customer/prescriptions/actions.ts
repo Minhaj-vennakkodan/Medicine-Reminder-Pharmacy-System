@@ -3,7 +3,7 @@
 import prisma from '@/lib/prisma';
 import { requireCustomerAction } from '@/lib/customerAuth';
 import { revalidatePath } from 'next/cache';
-import { writeFile } from 'fs/promises';
+import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -32,13 +32,14 @@ export async function uploadPrescription(formData: FormData) {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
+  await mkdir(uploadDir, { recursive: true });
   await writeFile(filePath, buffer);
 
   const fileUrl = `/uploads/${filename}`;
 
   await prisma.prescription.create({
     data: {
-      userId: user.userId,
+      userId: user.id,
       fileUrl,
       status: 'PENDING'
     }

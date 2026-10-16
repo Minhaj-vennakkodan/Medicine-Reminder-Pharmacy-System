@@ -4,15 +4,15 @@ import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
-export default async function OrderSuccessPage({ searchParams }: { searchParams: { orderId: string } }) {
+export default async function OrderSuccessPage({ searchParams }: { searchParams: Promise<{ orderId: string }> }) {
   const user = await requireCustomer();
-  const orderId = searchParams.orderId;
+  const { orderId } = await searchParams;
 
   const order = await prisma.order.findUnique({
     where: { id: orderId }
   });
 
-  if (!order || order.userId !== user.userId) {
+  if (!order || order.userId !== user.id) {
     return (
       <div style={{ textAlign: 'center', padding: '3rem' }}>
         <h2 style={{ color: 'var(--color-danger)' }}>Order Not Found</h2>
@@ -24,7 +24,7 @@ export default async function OrderSuccessPage({ searchParams }: { searchParams:
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
       <div className="card" style={{ padding: '3rem', borderTop: '4px solid var(--color-success)' }}>
-        <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🎉</div>
+        <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--color-success)', marginBottom: '1rem', letterSpacing: '2px' }}>SUCCESS</div>
         <h1 style={{ color: 'var(--color-primary)', marginBottom: '1rem' }}>Order Confirmed!</h1>
         <p style={{ marginBottom: '2rem', color: 'var(--color-text-muted)' }}>
           Thank you for your purchase. Your order has been placed successfully and is now being processed.

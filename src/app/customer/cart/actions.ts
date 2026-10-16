@@ -12,7 +12,7 @@ export async function addToCart(medicineId: string, quantity: number) {
   if (medicine.stock < quantity) throw new Error('Not enough stock');
 
   const existingCartItem = await prisma.cartItem.findFirst({
-    where: { userId: user.userId, medicineId }
+    where: { userId: user.id, medicineId }
   });
 
   if (existingCartItem) {
@@ -23,7 +23,7 @@ export async function addToCart(medicineId: string, quantity: number) {
   } else {
     await prisma.cartItem.create({
       data: {
-        userId: user.userId,
+        userId: user.id,
         medicineId,
         quantity
       }

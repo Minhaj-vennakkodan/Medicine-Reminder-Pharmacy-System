@@ -16,7 +16,7 @@ export default async function RemindersDashboard() {
   tomorrow.setDate(tomorrow.getDate() + 1);
 
   const reminders = await prisma.reminder.findMany({
-    where: { userId: user.userId, isActive: true },
+    where: { userId: user.id, isActive: true },
     include: {
       logs: {
         where: {
@@ -72,7 +72,7 @@ export default async function RemindersDashboard() {
               {pending.length > 0 && <h4 style={{ color: 'var(--color-primary)' }}>Pending</h4>}
               {pending.map(r => <ReminderCard key={r.id} reminder={r} date={today} />)}
               
-              {missed.length > 0 && <h4 style={{ color: 'var(--color-error)' }}>Missed</h4>}
+              {missed.length > 0 && <h4 style={{ color: 'var(--color-danger)' }}>Missed</h4>}
               {missed.map(r => <ReminderCard key={r.id} reminder={r} date={today} />)}
               
               {completed.length > 0 && <h4 style={{ color: 'var(--color-success)' }}>Completed</h4>}
@@ -127,7 +127,7 @@ function ReminderCard({ reminder, date }: { reminder: any /* eslint-disable-line
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div>
           <h3 style={{ margin: 0, color: 'var(--color-text)' }}>{reminder.medicineName}</h3>
-          <p style={{ margin: 0, color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>{reminder.dosage} • {reminder.mealTiming.replace('_', ' ')}</p>
+          <p style={{ margin: 0, color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>{reminder.dosage} â€¢ {reminder.mealTiming.replace('_', ' ')}</p>
         </div>
         <div style={{ fontWeight: 'bold', fontSize: '1.1rem', color: 'var(--color-primary)' }}>
           {reminder.time}

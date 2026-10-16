@@ -9,7 +9,7 @@ export async function updateCartQuantity(cartItemId: string, quantity: number) {
   
   if (quantity <= 0) {
     await prisma.cartItem.delete({
-      where: { id: cartItemId, userId: user.userId }
+      where: { id: cartItemId, userId: user.id }
     });
   } else {
     // Validate stock
@@ -22,7 +22,7 @@ export async function updateCartQuantity(cartItemId: string, quantity: number) {
     if (quantity > cartItem.medicine.stock) throw new Error('Not enough stock available');
     
     await prisma.cartItem.update({
-      where: { id: cartItemId, userId: user.userId },
+      where: { id: cartItemId, userId: user.id },
       data: { quantity }
     });
   }
@@ -34,7 +34,7 @@ export async function removeCartItem(cartItemId: string) {
   const user = await requireCustomerAction();
   
   await prisma.cartItem.delete({
-    where: { id: cartItemId, userId: user.userId }
+    where: { id: cartItemId, userId: user.id }
   });
   
   revalidatePath('/customer/cart');

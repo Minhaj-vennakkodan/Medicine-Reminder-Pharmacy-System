@@ -9,11 +9,11 @@ export default async function CheckoutPage() {
 
   const [cartItems, verifiedPrescriptions] = await Promise.all([
     prisma.cartItem.findMany({
-      where: { userId: user.userId },
+      where: { userId: user.id },
       include: { medicine: true }
     }),
     prisma.prescription.findMany({
-      where: { userId: user.userId, status: 'VERIFIED' }
+      where: { userId: user.id, status: 'VERIFIED' }
     })
   ]);
 

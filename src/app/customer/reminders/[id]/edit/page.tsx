@@ -6,14 +6,14 @@ import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
-export default async function EditReminderPage({ params }: { params: { id: string } }) {
+export default async function EditReminderPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await requireCustomer();
   
   const reminder = await prisma.reminder.findUnique({
-    where: { id: params.id }
+    where: { id: (await params).id }
   });
 
-  if (!reminder || reminder.userId !== user.userId) {
+  if (!reminder || reminder.userId !== user.id) {
     notFound();
   }
 

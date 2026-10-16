@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ReactNode } from 'react';
+import NotificationBell from './NotificationBell';
 
 export default function CustomerLayout({ children }: { children: ReactNode }) {
   return (
@@ -38,11 +39,13 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
               <Link href="/customer/medicines" style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--color-text-muted)' }}>Pharmacy</Link>
               <Link href="/customer/prescriptions" style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--color-text-muted)' }}>Prescriptions</Link>
               <Link href="/customer/reminders" style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--color-text-muted)' }}>Reminders</Link>
+              <Link href="/customer/profile" style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--color-text-muted)' }}>Profile</Link>
             </nav>
           </div>
           
           {/* Actions */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <NotificationBell />
             <Link href="/customer/cart" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-text-main)', fontSize: '0.875rem', fontWeight: '500' }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="9" cy="21" r="1"></circle>
@@ -53,6 +56,12 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
             </Link>
             <div style={{ width: '1px', height: '24px', backgroundColor: 'var(--color-border)' }}></div>
             <Link href="/customer/orders" style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--color-text-muted)' }}>Orders</Link>
+            <Link href="/customer/profile" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--color-primary)' }}>
+              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path>
+              </svg>
+              <span>Profile</span>
+            </Link>
             <a href="/api/auth/logout" style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--color-danger)' }}>Logout</a>
           </div>
         </div>
@@ -72,6 +81,8 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
           <Link href="/customer/medicines" style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--color-text-muted)' }}>Pharmacy</Link>
           <Link href="/customer/prescriptions" style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--color-text-muted)' }}>Prescriptions</Link>
           <Link href="/customer/reminders" style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--color-text-muted)' }}>Reminders</Link>
+          <Link href="/customer/notifications" style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--color-text-muted)' }}>Notifications</Link>
+          <Link href="/customer/profile" style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--color-text-muted)' }}>Profile</Link>
         </nav>
       </div>
 

@@ -6,11 +6,12 @@ import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
-export default async function MedicineDetailsPage({ params }: { params: { id: string } }) {
+export default async function MedicineDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   await requireCustomer();
+  const { id } = await params;
 
   const medicine = await prisma.medicine.findUnique({
-    where: { id: params.id }
+    where: { id }
   });
 
   if (!medicine) {

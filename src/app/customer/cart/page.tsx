@@ -8,7 +8,7 @@ export default async function CartPage() {
   const user = await requireCustomer();
 
   const cartItems = await prisma.cartItem.findMany({
-    where: { userId: user.userId },
+    where: { userId: user.id },
     include: {
       medicine: true
     },

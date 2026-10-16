@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id            String         @id @default(cuid())
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   email         String         @unique
   phone         String?
@@ -23,7 +23,7 @@ model User {
 }
 
 model Medicine {
-  id                   String      @id @default(cuid())
+  id                   String      @id @default(auto()) @map("_id") @db.ObjectId
   name                 String
   genericName          String?
   category             String?
@@ -40,11 +40,11 @@ model Medicine {
 }
 
 model Prescription {
-  id        String   @id @default(cuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   fileUrl   String
   status    String   @default("PENDING") // PENDING, VERIFIED, REJECTED
   notes     String?
-  userId    String
+  userId    String   @db.ObjectId
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -52,13 +52,13 @@ model Prescription {
 }
 
 model Order {
-  id             String        @id @default(cuid())
-  userId         String
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String        @db.ObjectId
   user           User          @relation(fields: [userId], references: [id])
   totalAmount    Float
   status         String        @default("PENDING") // Order Placed, Prescription Verified, Pharmacy Processing, Packed, Out for Delivery, Delivered, Cancelled
   paymentStatus  String        @default("PENDING") // PENDING, PAID, FAILED
-  prescriptionId String?
+  prescriptionId String?       @db.ObjectId
   prescription   Prescription? @relation(fields: [prescriptionId], references: [id])
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
@@ -66,30 +66,30 @@ model Order {
 }
 
 model OrderItem {
-  id         String   @id @default(cuid())
-  orderId    String
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId    String   @db.ObjectId
   order      Order    @relation(fields: [orderId], references: [id])
-  medicineId String
+  medicineId String   @db.ObjectId
   medicine   Medicine @relation(fields: [medicineId], references: [id])
   quantity   Int
   price      Float
 }
 
 model CartItem {
-  id         String   @id @default(cuid())
-  userId     String
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
   user       User     @relation(fields: [userId], references: [id])
-  medicineId String
+  medicineId String   @db.ObjectId
   medicine   Medicine @relation(fields: [medicineId], references: [id])
   quantity   Int
 }
 
 model Reminder {
-  id               String        @id @default(cuid())
-  userId           String
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId           String        @db.ObjectId
   user             User          @relation(fields: [userId], references: [id])
   medicineName     String
-  medicineId       String?
+  medicineId       String?       @db.ObjectId
   dosage           String
   time             String        // "HH:MM"
   frequency        String        @default("DAILY") // "DAILY", "WEEKLY", "AS_NEEDED"
@@ -106,8 +106,8 @@ model Reminder {
 }
 
 model ReminderLog {
-  id           String   @id @default(cuid())
-  reminderId   String
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  reminderId   String   @db.ObjectId
   reminder     Reminder @relation(fields: [reminderId], references: [id], onDelete: Cascade)
   scheduledFor DateTime
   status       String   @default("PENDING") // "PENDING", "COMPLETED", "MISSED"

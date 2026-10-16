@@ -4,11 +4,11 @@ import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
-export default async function OrderTrackingPage({ params }: { params: { id: string } }) {
+export default async function OrderTrackingPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await requireCustomer();
 
   const order = await prisma.order.findUnique({
-    where: { id: params.id },
+    where: { id: (await params).id },
     include: {
       items: {
         include: { medicine: true }
@@ -17,7 +17,7 @@ export default async function OrderTrackingPage({ params }: { params: { id: stri
     }
   });
 
-  if (!order || order.userId !== user.userId) {
+  if (!order || order.userId !== user.id) {
     return <div style={{ padding: '2rem' }}>Order not found.</div>;
   }
 

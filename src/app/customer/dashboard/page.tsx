@@ -9,15 +9,15 @@ export default async function CustomerDashboard() {
 
   const [recentOrders, cartItems, activeReminders, popularMedicines] = await Promise.all([
     prisma.order.findMany({
-      where: { userId: user.userId },
+      where: { userId: user.id },
       orderBy: { createdAt: 'desc' },
       take: 3
     }),
     prisma.cartItem.count({
-      where: { userId: user.userId }
+      where: { userId: user.id }
     }),
     prisma.reminder.findMany({
-      where: { userId: user.userId, isActive: true },
+      where: { userId: user.id, isActive: true },
       take: 3
     }),
     prisma.medicine.findMany({
@@ -37,7 +37,7 @@ export default async function CustomerDashboard() {
       </div>
       
       {/* Quick Stats & Actions */}
-      <div className="grid-cols-3" style={{ marginBottom: '2.5rem' }}>
+      <div className="grid-cols-4" style={{ marginBottom: '2.5rem' }}>
         <Link href="/customer/medicines" className="card" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none' }}>
           <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'var(--color-primary-light)', color: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
@@ -67,6 +67,16 @@ export default async function CustomerDashboard() {
             <span style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>{cartItems} items pending</span>
           </div>
         </Link>
+
+        <Link href="/customer/profile" className="card" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none' }}>
+          <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'var(--color-success-bg)', color: 'var(--color-success)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+          </div>
+          <div>
+            <h3 style={{ fontSize: '1rem', color: 'var(--color-text-main)', margin: 0 }}>My Profile</h3>
+            <span style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>Health &amp; patient info</span>
+          </div>
+        </Link>
       </div>
 
       <div className="grid-cols-2" style={{ marginBottom: '2.5rem' }}>
@@ -88,7 +98,7 @@ export default async function CustomerDashboard() {
                   <div style={{ width: '4px', height: '100%', minHeight: '32px', backgroundColor: 'var(--color-primary)', borderRadius: '4px' }}></div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: '600', color: 'var(--color-text-main)' }}>{r.medicineName}</div>
-                    <div style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>{r.dosage} • {r.frequency}</div>
+                    <div style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>{r.dosage} â€¢ {r.frequency}</div>
                   </div>
                   <div className="badge badge-info">{r.time}</div>
                 </li>
