@@ -2,11 +2,13 @@ import Link from 'next/link';
 import { ReactNode } from 'react';
 import NotificationBell from './NotificationBell';
 import ToastContainer from '@/components/Toast';
+import ReminderWatcher from '@/components/ReminderWatcher';
 
 export default function CustomerLayout({ children }: { children: ReactNode }) {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <ToastContainer />
+      <ReminderWatcher />
       {/* Premium Top Navigation */}
       <header style={{ 
         backgroundColor: 'var(--color-surface)', 

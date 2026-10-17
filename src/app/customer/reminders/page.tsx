@@ -3,6 +3,7 @@ import { requireCustomer } from '@/lib/customerAuth';
 import Link from 'next/link';
 import ReminderStatusForm from './ReminderStatusForm';
 import ReminderDeleteForm from './ReminderDeleteForm';
+import ReminderAlertControls from './ReminderAlertControls';
 
 export const dynamic = 'force-dynamic';
 
@@ -55,11 +56,19 @@ export default async function RemindersDashboard() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ color: 'var(--color-primary)' }}>Medicine Reminders</h1>
-        <Link href="/customer/reminders/add" className="btn btn-primary">
-          + Add Reminder
-        </Link>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+        <div>
+          <h1 style={{ color: 'var(--color-primary)', margin: 0 }}>Medicine Reminders</h1>
+          <p style={{ margin: '0.25rem 0 0 0', color: 'var(--color-text-muted)', fontSize: '0.875rem' }}>
+            Live sound & notifications alert you automatically when your dose is due
+          </p>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <ReminderAlertControls />
+          <Link href="/customer/reminders/add" className="btn btn-primary">
+            + Add Reminder
+          </Link>
+        </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>

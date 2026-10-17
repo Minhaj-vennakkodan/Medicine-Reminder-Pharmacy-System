@@ -141,3 +141,81 @@ export async function logReminderStatus(reminderId: string, scheduledFor: Date, 
 
   revalidatePath('/customer/reminders');
 }
+
+export async function getActiveRemindersForToday() {
+  const session = await requireCustomerAction();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const reminders = await prisma.reminder.findMany({
+    where: { userId: session.id, isActive: true },
+    include: {
+      logs: {
+        where: {
+          scheduledFor: {
+            gte: today,
+            lt: tomorrow
+          }
+        }
+      }
+    }
+  });
+
+  return reminders.map(r => {
+    let status = 'PENDING';
+    if (r.logs && r.logs.length > 0) {
+      status = r.logs[0].status;
+    }
+    return {
+      id: r.id,
+      medicineName: r.medicineName,
+      dosage: r.dosage,
+      time: r.time,
+      mealTiming: r.mealTiming || 'ANYTIME',
+      status,
+      notificationPref: r.notificationPref
+    };
+  });
+}
+
+export async function markReminderAsCompleted(reminderId: string) {
+  const session = await requireCustomerAction();
+  const today = new Date();
+  
+  const reminder = await prisma.reminder.findUnique({
+    where: { id: reminderId }
+  });
+
+  if (!reminder || reminder.userId !== session.id) {
+    throw new Error("Unauthorized");
+  }
+
+  const [rHours, rMinutes] = reminder.time.split(':').map(Number);
+  const scheduledFor = new Date(today);
+  scheduledFor.setHours(rHours, rMinutes, 0, 0);
+
+  await prisma.reminderLog.upsert({
+    where: {
+      reminderId_scheduledFor: {
+        reminderId,
+        scheduledFor
+      }
+    },
+    update: {
+      status: 'COMPLETED',
+      completedAt: new Date()
+    },
+    create: {
+      reminderId,
+      scheduledFor,
+      status: 'COMPLETED',
+      completedAt: new Date()
+    }
+  });
+
+  revalidatePath('/customer/reminders');
+  return { success: true };
+}
