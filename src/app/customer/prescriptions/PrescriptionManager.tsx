@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { uploadPrescription } from './actions';
 
+import { showAppToast } from '@/components/Toast';
+
 export default function PrescriptionManager({ prescriptions }: { prescriptions: any /* eslint-disable-line @typescript-eslint/no-explicit-any */[] }) {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -17,12 +19,12 @@ export default function PrescriptionManager({ prescriptions }: { prescriptions: 
 
     try {
       await uploadPrescription(formData);
-      alert('Prescription uploaded successfully!');
+      showAppToast('Prescription uploaded successfully!', 'success');
       setFile(null);
       // reset file input
       (document.getElementById('fileInput') as HTMLInputElement).value = '';
     } catch (err: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) {
-      alert(err.message);
+      showAppToast(err.message || 'Failed to upload prescription', 'error');
     }
     setLoading(false);
   };

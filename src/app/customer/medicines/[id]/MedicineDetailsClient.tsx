@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { addToCart } from '../../cart/actions';
 import { useRouter } from 'next/navigation';
+import { showAppToast } from '@/components/Toast';
 
 export default function MedicineDetailsClient({ medicine }: { medicine: any /* eslint-disable-line @typescript-eslint/no-explicit-any */ }) {
   const [quantity, setQuantity] = useState(1);
@@ -16,10 +17,10 @@ export default function MedicineDetailsClient({ medicine }: { medicine: any /* e
       if (buyNow) {
         router.push('/customer/checkout');
       } else {
-        alert('Added to cart!');
+        showAppToast(`"${medicine.name}" added to cart!`, 'success');
       }
     } catch (err: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) {
-      alert(err.message);
+      showAppToast(err.message || 'Failed to add item to cart', 'error');
     }
     setLoading(false);
   };

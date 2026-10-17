@@ -2,6 +2,7 @@
 
 import { useState, useRef, ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
+import ConfirmModal from '@/components/ConfirmModal';
 
 interface UserData {
   id: string;
@@ -90,7 +91,7 @@ export default function ProfileClient({
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 4 * 1024 * 1024) {
-        alert('File size must be under 4MB');
+        showToast('⚠️ File size must be under 4MB');
         return;
       }
       const preview = URL.createObjectURL(file);
@@ -269,7 +270,7 @@ export default function ProfileClient({
   const handleSaveMedication = (e: FormEvent) => {
     e.preventDefault();
     if (!medForm.medicineName.trim() || !medForm.dosage.trim()) {
-      alert('Please provide medication name and dosage.');
+      showToast('⚠️ Please provide medication name and dosage.');
       return;
     }
 
@@ -303,11 +304,11 @@ export default function ProfileClient({
     setIsMedModalOpen(false);
   };
 
+  const [medicationToDelete, setMedicationToDelete] = useState<{ id: string; name: string } | null>(null);
+
   const handleDeleteMedication = (id: string) => {
-    if (confirm('Are you sure you want to remove this medication from your profile?')) {
-      setMedications(prev => prev.filter(m => m.id !== id));
-      showToast('Medication removed.');
-    }
+    const med = medications.find(m => m.id === id);
+    setMedicationToDelete({ id, name: med?.medicineName || 'this medication' });
   };
 
   // 5. Emergency Contact
@@ -375,7 +376,7 @@ export default function ProfileClient({
 
   const handleDeleteAddress = (id: string) => {
     if (addresses.length <= 1) {
-      alert('You must have at least one delivery address.');
+      showToast('⚠️ You must have at least one delivery address.');
       return;
     }
     setAddresses(prev => prev.filter(a => a.id !== id));
@@ -472,15 +473,15 @@ export default function ProfileClient({
   const handleChangePassword = (e: FormEvent) => {
     e.preventDefault();
     if (!currentPassword) {
-      alert('Please enter your current password');
+      showToast('⚠️ Please enter your current password');
       return;
     }
     if (newPassword.length < 6) {
-      alert('New password must be at least 6 characters');
+      showToast('⚠️ New password must be at least 6 characters');
       return;
     }
     if (newPassword !== confirmPassword) {
-      alert('New password and confirm password do not match');
+      showToast('⚠️ New password and confirm password do not match');
       return;
     }
     setPasswordSuccess(true);
@@ -503,10 +504,10 @@ export default function ProfileClient({
 
   const handleConfirmDeleteAccount = () => {
     if (deleteConfirmationText !== 'DELETE') {
-      alert('Please type "DELETE" exactly to confirm.');
+      showToast('⚠️ Please type "DELETE" exactly to confirm.');
       return;
     }
-    alert('Account deletion initiated. Redirecting to logout...');
+    showToast('Account deletion initiated. Redirecting to logout...');
     // eslint-disable-next-line @next/next/no-location-assign-relative-destination
     window.location.assign('/api/auth/logout');
   };
@@ -2269,6 +2270,24 @@ export default function ProfileClient({
           </div>
         </div>
       )}
+
+      {/* Delete Medication Confirm Modal */}
+      <ConfirmModal
+        isOpen={!!medicationToDelete}
+        onClose={() => setMedicationToDelete(null)}
+        onConfirm={() => {
+          if (medicationToDelete) {
+            setMedications(prev => prev.filter(m => m.id !== medicationToDelete.id));
+            showToast(`"${medicationToDelete.name}" removed from profile.`);
+            setMedicationToDelete(null);
+          }
+        }}
+        title="Remove Medication"
+        message={`Are you sure you want to remove "${medicationToDelete?.name}" from your profile?`}
+        confirmText="Remove"
+        cancelText="Keep"
+        variant="danger"
+      />
 
     </div>
   );

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { placeOrder } from './actions';
+import { showAppToast } from '@/components/Toast';
 
 type CartItem = { id: string; quantity: number; medicine: { name: string; price: number; requiresPrescription: boolean } };
 type VerifiedRx = { id: string; createdAt: string | Date };
@@ -28,7 +29,7 @@ export default function CheckoutClient({ cartItems, verifiedPrescriptions }: { c
         router.push(`/customer/orders/success?orderId=${result.orderId}`);
       }
     } catch (err) {
-      alert(err instanceof Error ? err.message : String(err));
+      showAppToast(err instanceof Error ? err.message : String(err), 'error');
       setLoading(false);
     }
   };

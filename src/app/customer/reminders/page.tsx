@@ -137,7 +137,7 @@ function ReminderCard({ reminder, date }: { reminder: any /* eslint-disable-line
         <ReminderStatusForm reminder={reminder} scheduledFor={scheduledFor.toISOString()} />
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           <Link href={`/customer/reminders/${reminder.id}/edit`} className="btn btn-secondary" style={{ padding: '0.25rem 0.75rem', fontSize: '0.8rem' }}>Edit</Link>
-          <ReminderDeleteForm id={reminder.id} />
+          <ReminderDeleteForm id={reminder.id} medicineName={reminder.medicineName} />
         </div>
       </div>
     </div>

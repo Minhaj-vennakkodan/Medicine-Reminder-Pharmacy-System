@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { updateCartQuantity, removeCartItem } from './cartActions';
 import { useRouter } from 'next/navigation';
+import { showAppToast } from '@/components/Toast';
 
 export default function CartManager({ cartItems }: { cartItems: any /* eslint-disable-line @typescript-eslint/no-explicit-any */[] }) {
   const [loading, setLoading] = useState(false);
@@ -14,7 +15,7 @@ export default function CartManager({ cartItems }: { cartItems: any /* eslint-di
     try {
       await updateCartQuantity(id, qty);
     } catch (err: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) {
-      alert(err.message);
+      showAppToast(err.message || 'Failed to update quantity', 'error');
     }
     setLoading(false);
   };
