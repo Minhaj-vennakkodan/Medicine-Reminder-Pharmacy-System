@@ -4,6 +4,7 @@ import { useState, useRef, ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
 import ConfirmModal from '@/components/ConfirmModal';
 import { getUserAddresses, saveUserAddresses, type DeliveryAddress } from '@/lib/addresses';
+import { cancelOrder } from '@/app/customer/orders/actions';
 
 interface UserData {
   id: string;
@@ -385,7 +386,7 @@ export default function ProfileClient({
   const sampleFallbackOrders: OrderItem[] = [
     {
       id: 'ord-88912',
-      status: 'Out for Delivery',
+      status: 'Order Placed',
       totalAmount: 48.50,
       createdAt: new Date().toISOString(),
       paymentStatus: 'PAID'
@@ -423,7 +424,35 @@ export default function ProfileClient({
     }
   ];
 
-  const ordersList = initialOrders.length > 0 ? initialOrders : sampleFallbackOrders;
+  const [ordersList, setOrdersList] = useState<OrderItem[]>(() =>
+    initialOrders.length > 0 ? initialOrders : sampleFallbackOrders
+  );
+  const [cancellingOrderId, setCancellingOrderId] = useState<string | null>(null);
+  const [isCancellingOrder, setIsCancellingOrder] = useState(false);
+
+  const handleCancelOrderClick = (orderId: string) => {
+    setCancellingOrderId(orderId);
+  };
+
+  const handleConfirmCancelOrder = async () => {
+    if (!cancellingOrderId) return;
+    setIsCancellingOrder(true);
+    try {
+      if (!cancellingOrderId.startsWith('ord-')) {
+        await cancelOrder(cancellingOrderId);
+      }
+      setOrdersList(prev =>
+        prev.map(o => (o.id === cancellingOrderId ? { ...o, status: 'Cancelled', paymentStatus: o.paymentStatus === 'PAID' ? 'REFUNDED' : 'CANCELLED' } : o))
+      );
+      showToast(`Order #${cancellingOrderId.slice(-6).toUpperCase()} has been cancelled.`);
+      setCancellingOrderId(null);
+    } catch (err) {
+      showToast(err instanceof Error ? err.message : 'Failed to cancel order.');
+    } finally {
+      setIsCancellingOrder(false);
+    }
+  };
+
   const prescriptionsList = initialPrescriptions.length > 0 ? initialPrescriptions : sampleFallbackPrescriptions;
 
   // 7. Privacy & Security
@@ -1599,7 +1628,7 @@ export default function ProfileClient({
                       </tr>
                     </thead>
                     <tbody>
-                      {ordersList.slice(0, 3).map(order => (
+                      {ordersList.slice(0, 5).map(order => (
                         <tr key={order.id}>
                           <td>
                             <div style={{ fontWeight: '600' }}>#{order.id.slice(-6).toUpperCase()}</div>
@@ -1613,15 +1642,35 @@ export default function ProfileClient({
                           <td>
                             <span className={`badge ${
                               order.status === 'Delivered' ? 'badge-success' :
+                              order.status === 'Cancelled' ? 'badge-danger' :
                               order.status === 'Out for Delivery' ? 'badge-info' : 'badge-warning'
                             }`}>
                               {order.status}
                             </span>
                           </td>
                           <td style={{ textAlign: 'right' }}>
-                            <Link href={`/customer/orders/${order.id}`} className="btn btn-secondary" style={{ padding: '0.2rem 0.5rem', fontSize: '0.75rem' }}>
-                              Track
-                            </Link>
+                            <div style={{ display: 'flex', gap: '0.35rem', justifyContent: 'flex-end', alignItems: 'center' }}>
+                              <Link href={`/customer/orders/${order.id}`} className="btn btn-secondary" style={{ padding: '0.2rem 0.5rem', fontSize: '0.75rem' }}>
+                                Track
+                              </Link>
+                              {order.status !== 'Delivered' && order.status !== 'Cancelled' && (
+                                <button
+                                  type="button"
+                                  onClick={() => handleCancelOrderClick(order.id)}
+                                  className="btn btn-secondary"
+                                  style={{
+                                    padding: '0.2rem 0.5rem',
+                                    fontSize: '0.75rem',
+                                    color: 'var(--color-danger)',
+                                    borderColor: 'var(--color-danger-bg, #FCA5A5)',
+                                    backgroundColor: '#FFF5F5'
+                                  }}
+                                  title="Cancel order"
+                                >
+                                  Cancel
+                                </button>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       ))}
@@ -2262,6 +2311,19 @@ export default function ProfileClient({
         confirmText="Remove"
         cancelText="Keep"
         variant="danger"
+      />
+
+      {/* Cancel Order Confirm Modal */}
+      <ConfirmModal
+        isOpen={!!cancellingOrderId}
+        onClose={() => !isCancellingOrder && setCancellingOrderId(null)}
+        onConfirm={handleConfirmCancelOrder}
+        title="Cancel Order"
+        message={`Are you sure you want to cancel Order #${cancellingOrderId ? cancellingOrderId.slice(-6).toUpperCase() : ''}? This order will be stopped and items restored to pharmacy stock.`}
+        confirmText="Yes, Cancel Order"
+        cancelText="Keep Order"
+        variant="danger"
+        loading={isCancellingOrder}
       />
 
     </div>

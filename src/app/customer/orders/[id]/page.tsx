@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma';
 import { requireCustomer } from '@/lib/customerAuth';
 import Link from 'next/link';
+import CancelOrderButton from './CancelOrderButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -43,7 +44,12 @@ export default async function OrderTrackingPage({ params }: { params: Promise<{ 
         ← Back to Orders
       </Link>
       
-      <h1 style={{ color: 'var(--color-primary)', marginBottom: '2rem' }}>Track Order #{order.id.slice(-6).toUpperCase()}</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+        <h1 style={{ color: 'var(--color-primary)', margin: 0 }}>Track Order #{order.id.slice(-6).toUpperCase()}</h1>
+        {order.status !== 'Delivered' && order.status !== 'Cancelled' && (
+          <CancelOrderButton orderId={order.id} />
+        )}
+      </div>
 
       <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', alignItems: 'flex-start' }}>
         
