@@ -3,6 +3,7 @@
 import { useState, useRef, ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
 import ConfirmModal from '@/components/ConfirmModal';
+import { getUserAddresses, saveUserAddresses, type DeliveryAddress } from '@/lib/addresses';
 
 interface UserData {
   id: string;
@@ -39,18 +40,6 @@ interface PrescriptionItem {
   status: string;
   notes: string | null;
   createdAt: string;
-}
-
-interface DeliveryAddress {
-  id: string;
-  label: string;
-  fullName: string;
-  street: string;
-  city: string;
-  state: string;
-  pinCode: string;
-  phone: string;
-  isDefault: boolean;
 }
 
 interface EmergencyContactData {
@@ -329,30 +318,9 @@ export default function ProfileClient({
   };
 
   // 6. Pharmacy Information (Addresses, Orders, Prescriptions)
-  const [addresses, setAddresses] = useState<DeliveryAddress[]>([
-    {
-      id: 'addr-1',
-      label: 'Home',
-      fullName: personalInfo.fullName,
-      street: '42 Healthway Boulevard, Suite 300',
-      city: 'San Francisco',
-      state: 'CA',
-      pinCode: '94107',
-      phone: personalInfo.phone,
-      isDefault: true,
-    },
-    {
-      id: 'addr-2',
-      label: 'Office / Clinic',
-      fullName: personalInfo.fullName,
-      street: '750 Market Street, 4th Floor',
-      city: 'San Francisco',
-      state: 'CA',
-      pinCode: '94103',
-      phone: '+1 (555) 789-0123',
-      isDefault: false,
-    }
-  ]);
+  const [addresses, setAddresses] = useState<DeliveryAddress[]>(() =>
+    getUserAddresses(user.id, user.name, user.phone || undefined)
+  );
 
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [newAddressForm, setNewAddressForm] = useState({
@@ -367,10 +335,12 @@ export default function ProfileClient({
   });
 
   const handleSetDefaultAddress = (id: string) => {
-    setAddresses(prev => prev.map(a => ({
+    const updated = addresses.map(a => ({
       ...a,
       isDefault: a.id === id,
-    })));
+    }));
+    setAddresses(updated);
+    saveUserAddresses(updated, user.id);
     showToast('Default delivery address updated!');
   };
 
@@ -379,7 +349,9 @@ export default function ProfileClient({
       showToast('⚠️ You must have at least one delivery address.');
       return;
     }
-    setAddresses(prev => prev.filter(a => a.id !== id));
+    const updated = addresses.filter(a => a.id !== id);
+    setAddresses(updated);
+    saveUserAddresses(updated, user.id);
     showToast('Address removed.');
   };
 
@@ -397,11 +369,14 @@ export default function ProfileClient({
       isDefault: newAddressForm.isDefault || addresses.length === 0,
     };
 
+    let updated: DeliveryAddress[];
     if (newAddr.isDefault) {
-      setAddresses(prev => prev.map(a => ({ ...a, isDefault: false })).concat(newAddr));
+      updated = addresses.map(a => ({ ...a, isDefault: false })).concat(newAddr);
     } else {
-      setAddresses([...addresses, newAddr]);
+      updated = [...addresses, newAddr];
     }
+    setAddresses(updated);
+    saveUserAddresses(updated, user.id);
 
     setIsAddressModalOpen(false);
     showToast('New delivery address added!');
